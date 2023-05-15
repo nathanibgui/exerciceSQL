@@ -1,0 +1,89 @@
+4.1: cas d'utilisation : 
+
+Ajouter/Modifier/Supprimer des des enseignants, des cours, des semaines de cours.
+Planifier des horaires de cours et les emplacements de chaque cours.
+
+
+
+4.3
+
+Tout d’abbord, on devra ajouter un enseignant : 
+INSERT INTO `Enseignant` (`nom`, `prenom`) VALUES
+(Lionel, 'Kubwimana'),
+
+
+Puis, on ajouter une matière: 
+INSERT INTO `Matiere` (`nom`) VALUES
+(Harmonisation),
+(UML);
+
+
+Puis, une salle:
+INSERT INTO `Salle` (`numero_salle`) VALUES
+(101),
+(102);
+
+Et un cours
+
+INSERT INTO `num_cours` (`num`) VALUES
+(1/2),
+(2/2);
+
+La date: 
+INSERT INTO `date` (`date`) VALUES
+('2023-02-07'),
+('2023-02-08');
+
+Le numero de semaine: 
+INSERT INTO `Semaine` (`numero`) VALUES
+(1),
+(2);
+
+Le moment de la journée: 
+INSERT INTO `Moment_journee` (`moment`) VALUES
+('Matin'),
+('Après-midi');
+
+
+Et enfin, on ajoutera le tout a l’emploi du temps : 
+INSERT INTO `emploi_du_temps` (`date_debut`, `date_fn`, `heure_debut`, `heure_fin`, `id_Enseignant`, `id_Matiere`, `id_Salle`, `id_num_cours`, `id_date`, `id_Semaine`, `id_Moment_journee`) VALUES
+('2023-02-07', '2023-02-07', '09:00:00', '12:30:00', 1, 1, 1, 1, 1, 2, 1),
+('2023-02-08', '2023-02-08', '13:30:00', '17:00:00', 2, 2, 2, 2, 2, 2, 2);
+
+
+4.4 
+
+
+Requete 1 : 
+SELECT teachers.name, lessons.name
+FROM teachers
+INNER JOIN lessons
+ON teachers.id = lessons.teacher_id
+ORDER BY teachers.name ASC;
+
+
+Requete 2: 
+SELECT courses.nom, ues.nom, COUNT(*) AS evaluation_count
+FROM courses
+INNER JOIN ues
+ON courses.id_ues = ues.id
+GROUP BY cours.nom, ues.nom
+
+
+Requete 3:
+
+SELECT slots.moment, locations.numero_salle
+FROM slots
+INNER JOIN locations ON slots.location_id = locations.id;
+
+
+Requête 4
+
+SELECT locations.name AS location_name, COUNT(lessons.id) AS lesson_count
+FROM locations
+JOIN lessons ON locations.id = lessons.location_id
+GROUP BY locations.id
+ORDER BY lesson_count DESC;
+
+
+Requete 5 :
